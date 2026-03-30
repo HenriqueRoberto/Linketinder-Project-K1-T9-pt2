@@ -2,19 +2,20 @@ package linketinder.model
 
 class Vaga {
 
-    // Contador estático para gerar ids únicos e sequenciais por vaga
     private static int proximoId = 1
 
     int id
+    String nome
     String descricao
     String horario
     String localizacao
     String remuneracao
-    List<String> competencias
+    List<Competencia> competencias
     int idEmpresa
 
-    Vaga(String descricao, String horario, String localizacao, String remuneracao, List<String> competencias, int idEmpresa) {
+    Vaga(String nome, String descricao, String horario, String localizacao, String remuneracao, List<Competencia> competencias, int idEmpresa) {
         this.id = proximoId++
+        this.nome = nome
         this.descricao = descricao
         this.horario = horario
         this.localizacao = localizacao
@@ -26,9 +27,10 @@ class Vaga {
     @Override
     String toString() {
         String compTexto = (competencias == null || competencias.isEmpty()) ?
-                "sem competências cadastradas" : competencias.join(", ")
+                "sem competências cadastradas" : competencias.collect { it.nome }.join(", ")
 
-        return "Descrição: " + descricao +
+        return "Nome: " + nome +
+                "\nDescrição: " + descricao +
                 "\nHorário: " + horario +
                 "\nLocalização: " + localizacao +
                 "\nRemuneração: " + remuneracao +
